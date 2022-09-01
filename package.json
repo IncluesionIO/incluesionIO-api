@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "lodash": "^4.17.21",
+    "uuid": "^8.3.2"
+  },
+  "name": "incluesionio-api",
+  "description": "Please do not commit code to the main branch. Create pull requests and have them reviewed before merging to main.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IncluesionIO/incluesionIO-api.git"
+  },
+  "author": "Incluesion IO",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IncluesionIO/incluesionIO-api/issues"
+  },
+  "homepage": "https://github.com/IncluesionIO/incluesionIO-api#readme"
+}
