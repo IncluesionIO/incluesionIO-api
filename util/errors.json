@@ -1,0 +1,5 @@
+{
+  "_comment": "To create an error please add an error ID as the key, then the error message",
+
+  "NoPortOnEnvDetected": "Server start error: No PORT environment variable has been set up!\nHave you created the .env file and added the PORT variable?"
+}
