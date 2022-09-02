@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const _ = require("lodash")
+const mongoose = require('mongoose')
 const {v4: uuid} = require("uuid")
 require('dotenv').config()
 const errors = require('./util/errors.json')
@@ -22,7 +23,10 @@ try {
   {
     throw errors.NoPortOnEnvDetected
   }
-  app.listen(process.env.PORT, () => console.log("API Server is running..." + process.env.PORT))
+  mongoose.connect(process.env.DBURI)
+    .then(result => {
+      app.listen(process.env.PORT, () => console.log("API Server is running..." + process.env.PORT))
+    })
 }
 catch (e) {
   console.log(e)
