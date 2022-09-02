@@ -23,6 +23,10 @@ try {
   {
     throw errors.NoPortOnEnvDetected
   }
+  if(!process.env.DBURI)
+  {
+    throw errors.NoDBURIOnEnvDetected
+  }
   mongoose.connect(process.env.DBURI)
     .then(result => {
       app.listen(process.env.PORT, () => console.log("API Server is running..." + process.env.PORT))
