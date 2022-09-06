@@ -11,6 +11,7 @@ on:
     
 env: 
   DBURI: ${{secrets.DBURI}}
+  PORT: 3000
 
 jobs:
   build:
