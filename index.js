@@ -2,12 +2,16 @@ const express = require("express")
 const cors = require("cors")
 const _ = require("lodash")
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const {v4: uuid} = require("uuid")
 require('dotenv').config()
+
+const adminRoutes = require('./routes/admin.route')
 const errors = require('./util/errors.json')
 const {errorResponseHandler} = require('./util/errorHandler') 
 
 const app = express()
+
 
 //Example of an error
 app.use('/error', (req, res, next) =>
@@ -19,6 +23,13 @@ app.use('/error', (req, res, next) =>
 })
 
 //Used to test server
+
+app.use(cors())
+
+app.use(bodyParser.json())
+
+app.use('/admin', adminRoutes)
+
 app.use('/', (req, res, next) =>
 {
   res

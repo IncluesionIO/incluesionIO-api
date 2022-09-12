@@ -21,6 +21,11 @@ const userSchema = new Schema({
     required: true,
     enum: ['ADMIN', 'USER'],
     default: 'USER'
+  },
+  accountStatus: {
+    type: Boolean,
+    required: true,
+    default: true
   }
 })
 
