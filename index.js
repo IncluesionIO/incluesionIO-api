@@ -8,8 +8,21 @@ require('dotenv').config()
 
 const adminRoutes = require('./routes/admin.route')
 const errors = require('./util/errors.json')
+const {errorResponseHandler} = require('./util/errorHandler') 
 
 const app = express()
+
+
+//Example of an error
+app.use('/error', (req, res, next) =>
+{
+  const err = new Error('Error')
+  err.error = 'This is some error'
+  err.httpStatus = 410
+  next(err)
+})
+
+//Used to test server
 
 app.use(cors())
 
@@ -26,6 +39,10 @@ app.use('/', (req, res, next) =>
         message: "We're live!"
       })
 })
+
+//Error handler
+app.use(errorResponseHandler)
+
 //Check if we have the PORT env variable set up
 try {
   if(!process.env.PORT)
