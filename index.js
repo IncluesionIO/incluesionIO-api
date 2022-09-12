@@ -15,7 +15,7 @@ app.use(cors())
 
 app.use(bodyParser.json())
 
-app.use('/admin/', adminRoutes)
+app.use('/admin', adminRoutes)
 
 app.use('/', (req, res, next) =>
 {
