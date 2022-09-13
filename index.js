@@ -7,6 +7,7 @@ const {v4: uuid} = require("uuid")
 require('dotenv').config()
 
 const adminRoutes = require('./routes/admin.route')
+const authRoutes = require('./routes/auth.route')
 const errors = require('./util/errors.json')
 const {errorResponseHandler} = require('./util/errorHandler') 
 
@@ -26,6 +27,8 @@ app.use('/error', (req, res, next) =>
 app.use(cors())
 
 app.use(bodyParser.json())
+
+app.use('/auth', authRoutes)
 
 app.use('/admin', adminRoutes)
 
