@@ -10,8 +10,8 @@ exports.createAdmin = (req, res, next) =>
   if(!errors.isEmpty())
   {
     const error = new Error('Validation failed')
-    error.status = 422
-    error.data = error.array()
+    error.httpStatus = 422
+    error.data = errors.array()
     throw error
   }
   const username = req.body.username
@@ -20,5 +20,29 @@ exports.createAdmin = (req, res, next) =>
   const role = req.body.role
   const accountStatus = req.body.accountStatus
 
-  console.log('called!')
+  const admin = new User({
+    username,
+    password,
+    name,
+    role,
+    accountStatus
+  })
+
+  admin
+  .save()
+  .then(result =>
+    {
+      res.status(200)
+      .json({
+        message: 'User created successfully!', 
+        userId: result._id
+      })
+    })
+  .catch(err =>
+    {
+      const error = new Error('User creation error!')
+      error.message = err.message
+      error.data = err.errors
+      next(error)
+    })
 }

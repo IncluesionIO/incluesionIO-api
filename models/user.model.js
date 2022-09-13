@@ -30,7 +30,7 @@ const userSchema = new Schema({
 })
 
 //Before saving, check if the password has been changed
-userSchema.pre('save', (next) =>
+userSchema.pre('save', function(next)
 {
   var user = this
   //run only if the password has been modified or new
@@ -52,7 +52,7 @@ userSchema.pre('save', (next) =>
  * @param {String} inputPass The input password.
  * @param {userSchema~requestCallback} cb The callback function to be performed after the password is checked.
  */
-userSchema.methods.comparePassword = (inputPass, cb) =>
+userSchema.methods.comparePassword = function(inputPass, cb)
 {
   bcrypt.compare(inputPass, this.password, (err, isMatch) =>
   {

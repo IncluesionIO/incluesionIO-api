@@ -27,7 +27,14 @@ router.post('/create', [
   .isEmpty()
   .withMessage('Password is required!')
   .isLength({min: 8})
-  .withMessage('Password must be greater than 8 characters!')
+  .withMessage('Password must be greater than 8 characters!'),
+  body("name")
+  .not()
+  .isEmpty()
+  .withMessage('Name cannot be empty!'),
+  body('role')
+  .contains('ADMIN')
+  .withMessage('Invalid request!')
 ], adminController.createAdmin)
 
 module.exports = router

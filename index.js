@@ -17,7 +17,6 @@ const app = express()
 app.use('/error', (req, res, next) =>
 {
   const err = new Error('Error')
-  err.error = 'This is some error'
   err.httpStatus = 410
   next(err)
 })
