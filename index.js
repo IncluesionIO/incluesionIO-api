@@ -8,6 +8,7 @@ require('dotenv').config()
 
 const adminRoutes = require('./routes/admin.route')
 const authRoutes = require('./routes/auth.route')
+const userRoutes = require('./routes/user.route')
 const errors = require('./util/errors.json')
 const {errorResponseHandler} = require('./util/errorHandler') 
 
@@ -27,6 +28,8 @@ app.use('/error', (req, res, next) =>
 app.use(cors())
 
 app.use(bodyParser.json())
+
+app.use('/user', userRoutes)
 
 app.use('/auth', authRoutes)
 
