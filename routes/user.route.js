@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express')
 const { body } = require("express-validator/check");
 
 const User = require("../models/user.model");
-const adminController = require("../controllers/admin.controller");
+const userController = require("../controllers/user.controller");
 
-const router = express.Router();
+const router = express.Router()
 
 router.post(
   "/create",
@@ -30,9 +30,9 @@ router.post(
       .withMessage("Password must be greater than 8 characters!"),
     body("name").not().isEmpty().withMessage("Name cannot be empty!"),
     body("email").not().isEmpty().withMessage("Email cannot be empty"),
-    body("role").contains("ADMIN").withMessage("Invalid request!"),
+    body("role").contains("USER").withMessage("Invalid request!"),
   ],
-  adminController.createAdmin
+  userController.createUser
 );
 
-module.exports = router;
+module.exports = router
