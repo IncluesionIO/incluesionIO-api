@@ -29,7 +29,7 @@ router.post(
       .isLength({ min: 8 })
       .withMessage("Password must be greater than 8 characters!"),
     body("name").not().isEmpty().withMessage("Name cannot be empty!"),
-    body("email").not().isEmpty().withMessage("Email cannot be empty"),
+    body("email").normalizeEmail().isEmail().withMessage("Email cannot be empty"),
     body("role").contains("ADMIN").withMessage("Invalid request!"),
   ],
   adminController.createAdmin
