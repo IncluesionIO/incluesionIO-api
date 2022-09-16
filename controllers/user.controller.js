@@ -1,10 +1,10 @@
-//Controller for admin routes
+//Controller for user routes
 const {validationResult} = require('express-validator')
 
 //Import the user model
 const User = require('../models/user.model')
 
-exports.createAdmin = (req, res, next) =>
+exports.createUser = (req, res, next) =>
 {
   const errors = validationResult(req)
   if(!errors.isEmpty())
@@ -17,11 +17,11 @@ exports.createAdmin = (req, res, next) =>
   const username = req.body.username
   const password = req.body.password
   const name = req.body.name
-  const email = req.body.email
   const role = req.body.role
+  const email = req.body.email
   const accountStatus = req.body.accountStatus
 
-  const admin = new User({
+  const user = new User({
     username,
     password,
     name,
@@ -30,7 +30,7 @@ exports.createAdmin = (req, res, next) =>
     accountStatus
   })
 
-  admin
+  user
   .save()
   .then(result =>
     {
