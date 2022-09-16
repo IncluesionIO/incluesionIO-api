@@ -1,5 +1,15 @@
 const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
+
+const transporter = nodemailer.createTransport(sendgridTransport(
+  {
+    auth: {
+      api_key: process.env.SENDGRIDAPIKEY
+    }
+  }
+))
 
 exports.login = (req, res, next) =>
 {
@@ -43,4 +53,30 @@ exports.login = (req, res, next) =>
       .catch(err => {
         next(err)
       })
+}
+
+//This is set up to test
+exports.emailTest = (req, res, next) =>
+{
+  const recipientEmail = req.body.email
+  if(!recipientEmail)
+  {
+    const error = new Error('No email!')
+    error.httpStatus = 400
+    throw error
+  }
+
+  transporter.sendMail(
+    {
+      to: recipientEmail,
+      from: 'dteje014@fiu.edu',
+      subject: 'Email test',
+      html: '<h1>This is an email test of the IncluesionIO API Server</h1>'
+    }
+  ).then(result => res.status(200).json({msg: 'email sent!'}))
+  .catch(err => {
+    const error = new Error(err)
+    error.httpStatus = 400
+    next(error)
+  })
 }
