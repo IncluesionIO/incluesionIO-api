@@ -6,6 +6,9 @@ const bodyParser = require('body-parser')
 const {v4: uuid} = require("uuid")
 require('dotenv').config()
 
+
+//Routes
+const apiDocRoute = require('./routes/api-doc.route')
 const adminRoutes = require('./routes/admin.route')
 const authRoutes = require('./routes/auth.route')
 const errors = require('./util/errors.json')
@@ -34,6 +37,8 @@ app.use('/error', (req, res, next) =>
 app.use(cors())
 
 app.use(bodyParser.json())
+
+app.use('/api-docs', apiDocRoute)
 
 app.use('/auth', authRoutes)
 
