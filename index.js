@@ -14,6 +14,13 @@ const {errorResponseHandler} = require('./util/errorHandler')
 
 const app = express()
 
+//Example of auth required route
+const isAuth = require('./middleware/isAuth')
+
+app.use('/authenticated', isAuth, (req, res, next) =>
+{
+  res.status(200).json({msg: "You're authenticated!"})
+})
 
 //Example of an error
 app.use('/error', (req, res, next) =>
