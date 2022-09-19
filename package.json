@@ -15,6 +15,9 @@
     "swagger-ui-express": "^4.5.0",
     "uuid": "^8.3.2"
   },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
+  },
   "name": "incluesionio-api",
   "description": "Please do not commit code to the main branch. Create pull requests and have them reviewed before merging to main.",
   "version": "1.0.0",
