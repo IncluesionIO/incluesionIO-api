@@ -7,7 +7,7 @@
  * @example
  * const email = getPasswordResetEmailTemplate('victor@gmail.com', 'victor');
  */
-exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName) =>
+exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName, tokenString) =>
 {
   return {
     to: recipientEmail,
@@ -39,7 +39,7 @@ exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName) =>
     <p style="width: 60%; text-align: center; margin-bottom: 2rem; margin-left:auto; margin-right: auto;">
     You've requested a password reset for your Incluesion account. Please use the link below to get started.
     </p>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="
+    <a href="http://localhost:${process.env.PORT}/reset/${tokenString}" style="
     text-decoration: none;
     color: #fff;
     margin-top: 2rem;
