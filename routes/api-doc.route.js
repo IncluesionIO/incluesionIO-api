@@ -9,17 +9,20 @@ const swaggerOpts = {
   swaggerDefinition: {
     info: {
       title: 'incluesionio-api',
-      description: '',
+      description: 'API documentation for incluesionIO server',
+      version: '1.0.0',
       contact: {
         name: 'Daniel Tejeda'
       },
       servers: [`http://localhost:${process.env.PORT}`]
     }
   },
-  apis: ["*.routes.js"]
+  apis: ["./routes/*.route.js"]
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOpts)
+
+console.log(swaggerDocs)
 
 router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
