@@ -46,7 +46,11 @@ router.put(
       .not()
       .isEmpty()
       .withMessage("UserId of user to be updated is required!"),
-    body("changeObject").not().isEmpty().isObject().withMessage('Changes required!')
+    body("changeObject")
+      .not()
+      .isEmpty()
+      .isObject()
+      .withMessage("Changes required!"),
   ],
   isAuth,
   adminController.putUpdateUser
