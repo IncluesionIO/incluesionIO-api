@@ -49,6 +49,7 @@ exports.createUser = (req, res, next) =>
     })
 }
 
+//User account updates
 exports.putAccountUpdate = (req, res, next) =>
 {
   User.findById(req.userId)

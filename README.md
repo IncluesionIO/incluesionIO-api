@@ -15,5 +15,9 @@ After pulling the code from the repository
 
 ## Route files
 
+api-doc.route.js - Handles /api-doc/ route, which hosts SwaggerUI
 admin.js - handles all /admin/ routes
 api.js - handles all /api/ routes
+
+### API Documentation
+API documentation is hosted on SwaggerUI when the server is running, using path /api-docs/
