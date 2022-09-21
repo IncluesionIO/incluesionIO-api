@@ -48,3 +48,36 @@ exports.createUser = (req, res, next) =>
       next(error)
     })
 }
+
+exports.putAccountUpdate = (req, res, next) =>
+{
+  User.findById(req.userId)
+  .then(user =>
+    {
+      if(!user)
+      {
+        const error = new Error('No user found!')
+        error.httpStatus = 404
+        throw error
+      }
+      if(req.body.email && req.body.email.length > 0)
+      {
+        user.email = req.body.email !== user.email ? req.body.email : user.email
+      }
+      if(req.body.name && req.body.name.length > 0)
+      {
+        user.name = req.body.name !== user.email ? req.body.name : user.name
+      }
+      return user.save()
+    })
+  .then(result =>
+    {
+      res.status(200).json({msg: 'User updated successfully!'})
+    })
+  .catch(err =>
+    {
+      const error = new Error(err)
+      error.httpStatus = 500
+      return next(error)
+    })
+}
