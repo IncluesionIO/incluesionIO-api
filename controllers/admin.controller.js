@@ -52,53 +52,55 @@ exports.putUpdateUser = (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
-  //req.userId is the admin ID
-  //req.body.userId is the ID of the user to be updated!
-
-  //Verify user is an admin
-  User.findOne({ _id: req.userId, role: "ADMIN" })
-    .then((adminUser) => {
-      if (!adminUser) {
+  //Retrieve the User to be updated
+  User.findById(req.body.userId)
+    .then((user) => {
+      if (user.role === "ADMIN") {
         const error = new Error("Unauthorized!");
         error.httpStatus = 401;
         throw error;
       }
+      user.username = req.body.changeObject.username
+        ? req.body.changeObject.username
+        : user.username;
+      user.email = req.body.changeObject.email
+        ? req.body.changeObject.email
+        : user.email;
+      user.name = req.body.changeObject.name
+        ? req.body.changeObject.name
+        : user.name;
+      user.accountStatus = req.body.changeObject.accountStatus
+        ? req.body.changeObject.accountStatus
+        : user.accountStatus;
 
-      //We know that the user is an admin
-      //Retrieve the User to be updated
-      User.findById(req.body.userId)
-        .then((user) => {
-          if (user.role === "ADMIN") {
-            const error = new Error("Unauthorized!");
-            error.httpStatus = 401;
-            throw error;
-          }
-          user.username = req.body.changeObject.username
-            ? req.body.changeObject.username
-            : user.username;
-          user.email = req.body.changeObject.email
-            ? req.body.changeObject.email
-            : user.email;
-          user.name = req.body.changeObject.name
-            ? req.body.changeObject.name
-            : user.name;
-          user.accountStatus = req.body.changeObject.accountStatus
-            ? req.body.changeObject.accountStatus
-            : user.accountStatus;
-
-          return user.save();
-        })
-        .then((result) => {
-          res.status(200).json({ msg: "User updated successfully!" });
-        })
-        .catch((err) => {
-          if (err.httpStatus != 401) {
-            const error = new Error("Bad parameters!");
-            error.httpStatus = 400;
-            return next(error);
-          }
-          return next(err);
-        });
+      return user.save();
     })
-    .catch((err) => next(err));
+    .then((result) => {
+      res.status(200).json({ msg: "User updated successfully!" });
+    })
+    .catch((err) => {
+      if (err.httpStatus != 401) {
+        const error = new Error("Bad parameters!");
+        error.httpStatus = 400;
+        return next(error);
+      }
+      return next(err);
+    });
+};
+
+exports.putUpdateUserPassword = (req, res, next) => {
+  User.findById(req.body.userId)
+  .then(user =>
+    {
+      if(!user)
+      {
+        const error = new Error('No user found!')
+        error.httpStatus = 404
+        throw error
+      }
+
+      //Update the password
+
+      //Send the email
+    })
 };
