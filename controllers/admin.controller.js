@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 
 //Import the user model
 const User = require("../models/user.model");
+const { emailHandler } = require("../util/emailHandler");
 
 exports.createAdmin = (req, res, next) => {
   const errors = validationResult(req);
@@ -89,6 +90,15 @@ exports.putUpdateUser = (req, res, next) => {
 };
 
 exports.putUpdateUserPassword = (req, res, next) => {
+  //Error validator
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed");
+    error.httpStatus = 422;
+    error.data = errors.array();
+    throw error;
+  }
+
   User.findById(req.body.userId)
   .then(user =>
     {
@@ -98,9 +108,35 @@ exports.putUpdateUserPassword = (req, res, next) => {
         error.httpStatus = 404
         throw error
       }
+      //Check if the target user is an admin
+      if(user.role === 'ADMIN')
+      {
+        const error = new Error("Unauthorized!");
+        error.httpStatus = 401;
+        throw error;
+      }
 
       //Update the password
-
+      user.password = req.body.newPassword
+      return user.save()
+    })
+  .then(result =>
+    {
       //Send the email
+      emailHandler("adminResetUserPassword", 
+      {
+        name: result.name,
+        email: result.email,
+        value: req.body.newPassword
+      })
+
+      res.status(200).json({msg: 'User password successfully set!'})
+    })
+  .catch(err =>
+    {
+      console.log(err)
+      const error = new Error(err)
+      error.httpStatus = err.httpStatus || 500
+      next(error)
     })
 };
