@@ -56,4 +56,23 @@ router.put(
   adminController.putUpdateUser
 );
 
+router.post(
+  "/user",
+  [
+    body("username")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("Username is required!")
+      .custom((value, { req }) => {
+        return User.findOne({ username: value }).then((userDoc) => {
+          if (!userDoc) {
+            return Promise.reject("User Not Found!");
+          }
+        });
+      }),
+  ],
+  adminController.disableUser
+);
+
 module.exports = router;
