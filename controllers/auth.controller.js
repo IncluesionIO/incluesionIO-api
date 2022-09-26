@@ -86,7 +86,7 @@ exports.postPasswordReset = (req, res, next) => {
         emailHandler("passwordReset", {
           name: result.name,
           email: result.email,
-          token: result.resetToken,
+          value: result.resetToken,
         });
         res.status(200).json({});
       })

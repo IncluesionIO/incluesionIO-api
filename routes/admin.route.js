@@ -4,6 +4,7 @@ const { body } = require("express-validator");
 const User = require("../models/user.model");
 const adminController = require("../controllers/admin.controller");
 const isAuth = require("../middleware/isAuth");
+const isAdmin = require("../middleware/isAdmin");
 
 const router = express.Router();
 
@@ -53,7 +54,27 @@ router.put(
       .withMessage("Changes required!"),
   ],
   isAuth,
+  isAdmin,
   adminController.putUpdateUser
+);
+
+router.put(
+  "/userPasswordReset",
+  [
+    body("userId")
+      .not()
+      .isEmpty()
+      .withMessage("A user ID is required!")
+      .isString()
+      .withMessage("User ID must be a string!"),
+    body("newPassword")
+      .not()
+      .isEmpty()
+      .withMessage("The new password cannot be empty!"),
+  ],
+  isAuth,
+  isAdmin,
+  adminController.putUpdateUserPassword
 );
 
 module.exports = router;
