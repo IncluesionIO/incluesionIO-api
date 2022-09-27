@@ -2,18 +2,18 @@
  * 
  * @param {String} recipientEmail - The receipient email
  * @param {String} recipientName - The name of the receipient
- * @param {String} tokenString - The string of the password reset token
+ * @param {String} newPassword - The password set by the admin for the user
  * @returns {Object} Email template to be sent for a password reset.
  * 
  * @example
- * const email = getPasswordResetEmailTemplate('victor@gmail.com', 'victor');
+ * const email = getAdminResetUserPasswordEmailTemplate('victor@gmail.com', 'victor');
  */
-exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName, tokenString) =>
+exports.getAdminResetUserPasswordEmailTemplate = (recipientEmail, recipientName, newPassword) =>
 {
   return {
     to: recipientEmail,
     from: 'dteje014@fiu.edu', //temp
-    subject: `Password Reset Request for ${recipientName}`,
+    subject: `Incluesion: Admin has reset password for ${recipientName}`,
     html: `<div style="
     margin: 0;
     padding: 0;
@@ -38,18 +38,13 @@ exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName, tokenStr
     Password Reset &#128064;
     </h1>
     <p style="width: 60%; text-align: center; margin-bottom: 2rem; margin-left:auto; margin-right: auto;">
-    You've requested a password reset for your Incluesion account. Please use the link below to get started.
+    An administrator has reset the password on your account. Please use the following password to login to your account.
     </p>
-    <a href="http://localhost:${process.env.PORT}/reset/${tokenString}" style="
-    text-decoration: none;
-    color: #fff;
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-    padding: 1rem 1.5rem;
-    box-shadow: 2px 4px 10px #ccc;
-    background: #079BF5;
-    font-family: sans-serif;
-    font-weight: bold;" class="passwordResetLink">Reset your password</a>
+
+    <p style="width: 60%; text-align: center; margin-bottom: 2rem; margin-left:auto; margin-right: auto;">
+    Password: ${newPassword}
+    </p>
+    
     <p style="width: 60%;
     font-size: .85rem;
     color: #888;
@@ -57,7 +52,7 @@ exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName, tokenStr
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 40px">
-     If you did not request a password reset, you can safely ignore this email. Only a person with access to your email can reset your Incluesion account password.
+     If you have any questions, please contact us.
     </p>
   </div>
 </div>
