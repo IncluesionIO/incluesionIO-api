@@ -117,7 +117,7 @@ exports.putPasswordReset = (req, res, next) => {
         if (err) {
           throw err;
         }
-        if (isMatch) {
+        if (!isMatch) {
           //If password does not match current password
           user.password = newPassword;
           user.resetToken = "";
