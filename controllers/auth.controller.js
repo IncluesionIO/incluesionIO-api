@@ -76,6 +76,7 @@ exports.postPasswordReset = (req, res, next) => {
         if (!user) {
           //We don't want to give information if an account exists or not
           res.status(200).json({});
+          return
         }
         user.resetToken = token;
         //Set reset token expiration to 15 minutes after creation
@@ -83,16 +84,20 @@ exports.postPasswordReset = (req, res, next) => {
         return user.save();
       })
       .then((result) => {
-        emailHandler("passwordReset", {
-          name: result.name,
-          email: result.email,
-          token: result.resetToken,
-        });
-        res.status(200).json({});
+        //Check if result is undefined
+        if(result) {
+          emailHandler("passwordReset", {
+            name: result.name,
+            email: result.email,
+            token: result.resetToken,
+          });
+          res.status(200).json({});
+        }
       })
       .catch((err) => {
         const error = new Error(err);
         error.httpStatus = 500;
+        console.log(error)
         next(error);
       });
   });
