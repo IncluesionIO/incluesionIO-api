@@ -54,18 +54,18 @@ exports.disableUser = (req, res, next) => {
     throw error;
   }
 
-  User.find({ username: req.body.username })
-    .then((userDisabled) => {
-      const user = userDisabled.find((user) => typeof user !== "undefined");
-      if (user.accountStatus) {
-        user.accountStatus = false;
-        user.save();
-      } else {
-        res.status(409).json({
-          message: "User is already Disabled!",
-        });
-      }
-    })
+  UserOne.find({ _id: req.body.userId })
+    .then((user) => {
+      if(user){
+        if (user.accountStatus) {
+          user.accountStatus = false;
+          user.save();
+        } else {
+          res.status(409).json({
+            message: "User is already Disabled!",
+          });
+        }
+      }})
     .then(() => {
       res.status(200).json({
         message: "User Disabled successfully!",

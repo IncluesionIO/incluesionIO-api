@@ -92,6 +92,8 @@ router.put(
         });
       }),
   ],
+  isAuth,
+  isAdmin,
   adminController.disableUser);
   
 router.put(
