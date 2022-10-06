@@ -15,6 +15,27 @@ const router = express.Router();
  *       - User
  *     summary: Create a user account
  *     description: Used to create a user account
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: user
+ *         schema:  
+ *           type: object
+ *           required:
+ *             - username
+ *             - password
+ *             - name
+ *             - email
+ *           properties:
+ *              username:
+ *                type: string
+ *              password:
+ *                type: string
+ *              name:
+ *                type: string
+ *              email:
+ *                type: string
  *     responses:
  *       '200':
  *          description: A successful request, user is created
@@ -94,9 +115,25 @@ router.get("/list", userController.getUsers);
  *       - User
  *     summary: Update a user account
  *     description: Use to update an authenicated user
+ *     consumes:
+ *       - application/json
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: body
+ *         name: userChanges
+ *         schema:
+ *           type: object
+ *           properties:
+ *              name:
+ *                type: string
+ *              email:
+ *                type: string
  *     responses:
  *       '200':
  *          description: A successful request, user is updated
+ *       '401':
+ *          description: Unauthorized Bad or no token
  *       '404':
  *          description: No user was found with the authenticated ID
  *       '500':

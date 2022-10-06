@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express')
 
 const swaggerOpts = {
   swaggerDefinition: {
+    openapi: '3.0.1',
     info: {
       title: 'incluesionio-api',
       description: 'API documentation for incluesionIO server',
@@ -15,7 +16,19 @@ const swaggerOpts = {
         name: 'Daniel Tejeda'
       },
       servers: [`http://localhost:${process.env.PORT}`]
-    }
+    },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    },
+    security: [{
+      bearerAuth: []
+    }],
   },
   apis: ["./routes/*.route.js"]
 }
