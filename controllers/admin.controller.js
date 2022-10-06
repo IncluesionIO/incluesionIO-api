@@ -54,7 +54,7 @@ exports.disableUser = (req, res, next) => {
     throw error;
   }
 
-  UserOne.find({ _id: req.body.userId })
+  User.findOne({ _id: req.body.userId })
     .then((user) => {
       if(user){
         if (user.accountStatus) {
