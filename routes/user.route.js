@@ -57,12 +57,14 @@ router.post(
 /**
  * @swagger
  * /user/list:
- *   get:
+ *   put:
  *     summary: Retrieve a List of all Users
  *     description: Used to get all Users Information
  *     responses:
  *       '200':
- *          description: A successful request, user is created
+ *          description: A successful request, existing users returned
+ *       '404':
+ *          description: A failed request, users not found
  *       '500':
  *          description: Internal server error
  */
@@ -70,13 +72,15 @@ router.get("/list", userController.getUsers);
 
 /**
  * @swagger
- * /user/list:
+ * /user/get/:id:
  *   get:
- *     summary: Retrieve a List of all Users
- *     description: Used to get all Users Information
+ *     summary: Retrieve a single specified user
+ *     description: Retrieval of One User using UserId
  *     responses:
  *       '200':
  *          description: A successful request, user is created
+ *       '404':
+ *          description: A failed request, user not found
  *       '500':
  *          description: Internal server error
  */
