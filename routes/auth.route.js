@@ -107,10 +107,10 @@ router.post(
  *         schema:  
  *           type: object
  *           required:
- *             - token
+ *             - resetToken
  *             - newPassword
  *           properties:
- *              token:
+ *              resetToken:
  *                 type: string
  *                 description: The token sent to the user by email for their password reset
  *                 example: 482f96758c74eaeca57b6c9d6e51f853
