@@ -1,0 +1,7 @@
+version: '3.9'
+
+services:
+   incluesion-api-service:
+    build: .
+    ports:
+      - 13000:3000
