@@ -61,7 +61,16 @@ exports.getUsers = (req, res, next) => {
         error.httpStatus = 404;
         throw error;
       }
-      return res.status(200).json(users);
+      console.log(users)
+      const returnList = users.map(user => {
+        return {
+          username: user.username,
+          name: user.name,
+          role: user.role,
+          accountStatus: user.accountStatus
+        }
+      })
+      return res.status(200).json(returnList);
     })
     .catch((err) => {
       const error = new Error("Users Retrieval error!");
@@ -89,7 +98,12 @@ exports.getUser = (req, res, next) => {
         error.httpStatus = 404;
         throw error;
       }
-      return res.status(200).json(user);
+      return res.status(200).json({
+        user: user.username,
+        name: user.name,
+        role: user.role,
+        accountStatus: user.accountStatus
+      })
     })
     .catch((err) => {
       const error = new Error("User Retrieval error!");
