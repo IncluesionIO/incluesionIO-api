@@ -11,7 +11,7 @@ const router = express.Router();
  * @swagger
  * /user/create:
  *   post:
- *     tags: 
+ *     tags:
  *       - User
  *     summary: Create a user account
  *     description: Used to create a user account
@@ -41,7 +41,7 @@ const router = express.Router();
  *          description: A successful request, user is created
  *       '422':
  *          description: There was an error in the parameters
- *       '500': 
+ *       '500':
  *          description: Internal server error
  */
 router.post(
@@ -77,9 +77,41 @@ router.post(
 
 /**
  * @swagger
+ * /user/list:
+ *   put:
+ *     summary: Retrieve a List of all Users
+ *     description: Used to get all Users Information
+ *     responses:
+ *       '200':
+ *          description: A successful request, existing users returned
+ *       '404':
+ *          description: A failed request, users not found
+ *       '500':
+ *          description: Internal server error
+ */
+router.get("/list", userController.getUsers);
+
+/**
+ * @swagger
+ * /user/get/:id:
+ *   get:
+ *     summary: Retrieve a single specified user
+ *     description: Retrieval of One User using UserId
+ *     responses:
+ *       '200':
+ *          description: A successful request, user is created
+ *       '404':
+ *          description: A failed request, user not found
+ *       '500':
+ *          description: Internal server error
+ */
+ router.get("/get/:id", userController.getUser);
+
+/**
+ * @swagger
  * /user/update:
  *   put:
- *     tags: 
+ *     tags:
  *       - User
  *     summary: Update a user account
  *     description: Use to update an authenicated user
@@ -104,7 +136,7 @@ router.post(
  *          description: Unauthorized Bad or no token
  *       '404':
  *          description: No user was found with the authenticated ID
- *       '500': 
+ *       '500':
  *          description: Internal server error
  */
 router.put("/update", isAuth, userController.putAccountUpdate);
