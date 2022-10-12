@@ -65,6 +65,7 @@ exports.getUsers = (req, res, next) => {
       const returnList = users.map(user => {
         return {
           id: user._id,
+          username: user.username,
           name: user.name,
           role: user.role,
           accountStatus: user.accountStatus
@@ -100,6 +101,7 @@ exports.getUser = (req, res, next) => {
       }
       return res.status(200).json({
         id: user._id,
+        username: user.username,
         name: user.name,
         role: user.role,
         accountStatus: user.accountStatus
