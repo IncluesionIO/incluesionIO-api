@@ -64,7 +64,7 @@ exports.getUsers = (req, res, next) => {
       console.log(users)
       const returnList = users.map(user => {
         return {
-          username: user.username,
+          id: user._id,
           name: user.name,
           role: user.role,
           accountStatus: user.accountStatus
@@ -99,7 +99,7 @@ exports.getUser = (req, res, next) => {
         throw error;
       }
       return res.status(200).json({
-        user: user.username,
+        id: user._id,
         name: user.name,
         role: user.role,
         accountStatus: user.accountStatus
