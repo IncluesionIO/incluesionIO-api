@@ -29,3 +29,7 @@ After pulling the code from the repository
 
 ### API Documentation
 API documentation is hosted on SwaggerUI when the server is running, using path /api-docs/
+
+## Scripts
+- npm start: starts the server on the local machine
+- npm test: starts the server, but runs the test suite, then closes
