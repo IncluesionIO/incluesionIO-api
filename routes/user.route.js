@@ -78,7 +78,7 @@ router.post(
 /**
  * @swagger
  * /user/list:
- *   put:
+ *   get:
  *     summary: Retrieve a List of all Users
  *     description: Used to get all Users Information
  *     responses:
