@@ -12,6 +12,7 @@ const apiDocRoute = require('./routes/api-doc.route')
 const adminRoutes = require('./routes/admin.route')
 const authRoutes = require('./routes/auth.route')
 const userRoutes = require('./routes/user.route')
+const assessmentRoutes = require('./routes/assessment.route')
 const errors = require('./util/errors.json')
 const {errorResponseHandler} = require('./util/errorHandler') 
 
@@ -46,6 +47,8 @@ app.use('/api-docs', apiDocRoute)
 app.use('/auth', authRoutes)
 
 app.use('/admin', adminRoutes)
+
+app.use('/assessment', assessmentRoutes)
 
 app.use('/', (req, res, next) =>
 {
