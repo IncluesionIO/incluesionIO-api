@@ -151,6 +151,42 @@ router.put(
 
 /**
  * @swagger
+ * /admin/disable:
+ *   put:
+ *     tags: 
+ *       - User
+ *     summary: Disable a Specified User
+ *     description: Used to disable a user account conditional on admin privilages 
+ *     responses:
+ *       '200':
+ *          description: A successful request, user is disabled
+ *       '409':
+ *          description: The Specified User is already disabled
+ *       '500': 
+ *          description: Internal server error
+ */
+
+router.put(
+  "/disable",
+  [
+    body("id")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("_id is required!")
+      .custom((value, { req }) => {
+        return User.findOne({ _id: value }).then((userDoc) => {
+          if (!userDoc) {
+            return Promise.reject("User Not Found!");
+          }
+        });
+      }),
+  ],
+  isAuth,
+  isAdmin,
+  adminController.disableUser);
+
+/**
  * /admin/userPasswordReset:
  *   put:
  *     tags: 
