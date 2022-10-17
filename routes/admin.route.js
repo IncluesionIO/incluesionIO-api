@@ -79,13 +79,13 @@ router.put(
 router.put(
   "/disable",
   [
-    body("username")
+    body("id")
       .trim()
       .not()
       .isEmpty()
-      .withMessage("Username is required!")
+      .withMessage("_id is required!")
       .custom((value, { req }) => {
-        return User.findOne({ username: value }).then((userDoc) => {
+        return User.findOne({ _id: value }).then((userDoc) => {
           if (!userDoc) {
             return Promise.reject("User Not Found!");
           }
