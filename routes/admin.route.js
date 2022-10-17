@@ -9,6 +9,48 @@ const isAdmin = require("../middleware/isAdmin");
 const router = express.Router();
 
 
+/**
+ * @swagger
+ * /admin/create:
+ *   post:
+ *     tags: 
+ *       - Admin
+ *     summary: Create a admin user account
+ *     description: Used to create a admin user account
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: adminuser
+ *         schema:  
+ *           type: object
+ *           required:
+ *             - username
+ *             - password
+ *             - name
+ *             - email
+ *             - role
+ *           properties:
+ *              username:
+ *                type: string
+ *                unique: true
+ *              password:
+ *                type: string
+ *              name:
+ *                type: string
+ *              email:
+ *                type: string
+ *              role:
+ *                type: string
+ *                example: 'ADMIN'
+ *     responses:
+ *       '200':
+ *          description: A successful request, user is created
+ *       '422':
+ *          description: There was an error in the parameters
+ *       '500': 
+ *          description: Internal server error
+ */
 router.post(
   "/create",
   [
@@ -41,6 +83,54 @@ router.post(
   adminController.createAdmin
 );
 
+
+/**
+ * @swagger
+ * /admin/userUpdate:
+ *   put:
+ *     tags: 
+ *       - Admin
+ *     summary: Admin route to update a user account
+ *     description: Used to update a user account as an admin
+ *     consumes:
+ *       - application/json
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: body
+ *         name: updateRequest
+ *         schema:  
+ *           type: object
+ *           required:
+ *             - userId
+ *             - changeObject
+ *           properties:
+ *             userId:
+ *               type: string
+ *             changeObject:              
+ *               type: object
+ *               properties:
+ *                  username:
+ *                     type: string
+ *                  email:
+ *                     type: string
+ *                  name:
+ *                      type: string
+ *                  accountStatus:
+ *                      type: boolean
+ *               
+ *     responses:
+ *       '200':
+ *          description: A successful request, user is updated
+ *       '400':
+ *          description: Bad parameters
+ *       '401':
+ *          description: Unauthorized, bad JWT or user cannot edit another admin
+ *       '422':
+ *          description: There was an error in the parameters
+ *       '500': 
+ *          description: Internal server error
+ */
 router.put(
   "/userUpdate",
   [
@@ -95,7 +185,46 @@ router.put(
   isAuth,
   isAdmin,
   adminController.disableUser);
-  
+
+/**
+ * /admin/userPasswordReset:
+ *   put:
+ *     tags: 
+ *       - Admin
+ *     summary: Admin route to reset a user password
+ *     description: Admin can use this route to create a new password for a user
+ *     consumes:
+ *       - application/json
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: body
+ *         name: passwordReset
+ *         schema:  
+ *           type: object
+ *           required:
+ *             - userId
+ *             - newPassword
+ *           properties:
+ *             userId:
+ *               type: string
+ *             newPassword:              
+ *               type: string
+ *               
+ *     responses:
+ *       '200':
+ *          description: A successful request, user password is changed
+ *       '400':
+ *          description: Bad parameters
+ *       '401':
+ *          description: Unauthorized, bad JWT or user cannot edit another admin
+ *       '404':
+ *          description: No user was found
+ *       '422':
+ *          description: There was an error in the parameters
+ *       '500': 
+ *          description: Internal server error
+ */
 router.put(
   "/userPasswordReset",
   [
