@@ -1,19 +1,19 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const assessmentSchema = new Schema({
   companyID: {
     type: String,
-    required: true
+    required: true,
   },
   timestamp: {
     type: String,
-    required: true
+    required: true,
   },
   data: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-module.exports = mongoose.model('Assessment', assessmentSchema)
+module.exports = mongoose.model("Assessment", assessmentSchema);

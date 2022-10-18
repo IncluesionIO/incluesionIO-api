@@ -20,7 +20,7 @@ const router = express.Router();
  *     parameters:
  *       - in: body
  *         name: user
- *         schema:  
+ *         schema:
  *           type: object
  *           required:
  *             - username
@@ -105,7 +105,7 @@ router.get("/list", userController.getUsers);
  *       '500':
  *          description: Internal server error
  */
- router.get("/get/:id", userController.getUser);
+router.get("/get/:id", userController.getUser);
 
 /**
  * @swagger
