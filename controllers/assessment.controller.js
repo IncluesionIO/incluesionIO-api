@@ -14,8 +14,10 @@ exports.submitAssessment = (req, res, next) => {
 
   const timestamp = req.body.timestamp;
   const data = req.body.data;
+  const companyID = req.body.company_id;
 
   const assessment = new Assessment({
+    companyID,
     timestamp,
     data,
   });
@@ -32,3 +34,5 @@ exports.submitAssessment = (req, res, next) => {
       next(error);
     });
 };
+
+//assessment link https://docs.google.com/forms/d/e/1FAIpQLSeOlhoiEprxE07v1oOCbniEi2mxp874GN2jObi2aqgPvdGW9g/viewform?usp=pp_url&entry.873971165=somerandomcompany-donotchange
