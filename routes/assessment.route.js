@@ -19,9 +19,12 @@ const assessmentController = require('../controllers/assessment.controller')
  *         schema:  
  *           type: object
  *           required:
+ *             - company_id
  *             - timestamp
  *             - data
  *           properties:
+ *              company_id:
+ *                type: string
  *              timestamp:
  *                type: string
  *              data:
@@ -36,6 +39,9 @@ const assessmentController = require('../controllers/assessment.controller')
  */
 router.post('/submitAssessment', 
 [
+  body('company_id')
+  .notEmpty()
+  .withMessage('Company ID cannot be empty!'),
   body('timestamp')
   .notEmpty()
   .withMessage('Timestamp cannot be empty!')
