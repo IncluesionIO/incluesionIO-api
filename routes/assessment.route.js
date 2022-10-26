@@ -66,7 +66,7 @@ router.post(
  *       '200':
  *          description: A successful request, assessments returned
  *       '404':
- *          description: A failed request, user not found
+ *          description: A failed request, assessments with CompanyID not found
  *       '500':
  *          description: Internal server error
  */
