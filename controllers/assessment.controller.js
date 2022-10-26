@@ -43,12 +43,9 @@ exports.getAssessmentByCompanyId = (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
-
-  Assessment.find({
-    companyID: req.params.id,
-  })
+  Assessment.find({ companyID: req.params.companyId })
     .then((assessments) => {
-      if (!assessments) {
+      if (assessments.length < 1) {
         const error = new Error("No assessments found!");
         error.httpStatus = 404;
         throw error;
