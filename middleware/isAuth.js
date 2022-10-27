@@ -17,12 +17,11 @@ module.exports = (req, res, next) =>
     err.httpStatus = 500
     throw err
   }
-
-  if(!decodedToken)
+  const time = (Date.now() / 1000)
+  if(!decodedToken || !(time < decodedToken.exp))
   {
     notAuthenticatedErrorHelper()
   }
-
   req.userId = decodedToken.userId
   next()
 }
