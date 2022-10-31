@@ -17,8 +17,8 @@ module.exports = (req, res, next) =>
     err.httpStatus = 500
     throw err
   }
-  const time = (Date.now() / 1000)
-  if(!decodedToken || !(time < decodedToken.exp))
+
+  if(!decodedToken)
   {
     notAuthenticatedErrorHelper()
   }
