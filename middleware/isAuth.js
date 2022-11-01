@@ -22,7 +22,6 @@ module.exports = (req, res, next) =>
   {
     notAuthenticatedErrorHelper()
   }
-
   req.userId = decodedToken.userId
   next()
 }

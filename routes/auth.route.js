@@ -4,6 +4,7 @@ const { body } = require("express-validator");
 const router = express.Router();
 
 const authController = require("../controllers/auth.controller");
+const isAuth = require("../middleware/isAuth");
 
 /**
  * @swagger
@@ -50,6 +51,35 @@ const authController = require("../controllers/auth.controller");
  *          description: Internal server error
  */
 router.post("/login", authController.login);
+
+/**
+ * @swagger
+ * /auth/:
+ *   get:
+ *     tags: 
+ *       - Authentication
+ *     summary: Validates JWT
+ *     description: Used to validate JWT
+ *     responses:
+ *       '200':
+ *          description: A successful request, user is logged in
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  token:
+ *                    type: string
+ *                    description: JWT to identify user
+ *                  userId:
+ *                    type: string
+ *                    description: The user ID associated to the account
+ *       '401':
+ *          description: User is not authenticated
+ *       '500': 
+ *          description: Internal server error
+ */
+router.get("/", isAuth, authController.validatedJWT);
 
 /**
  * @swagger
