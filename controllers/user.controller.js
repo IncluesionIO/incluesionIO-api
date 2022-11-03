@@ -68,6 +68,7 @@ exports.getUsers = (req, res, next) => {
           name: user.name,
           email: user.email,
           role: user.role,
+          lastLogin: user.lastLogin,
           accountStatus: user.accountStatus,
         };
       });
@@ -105,6 +106,7 @@ exports.getUser = (req, res, next) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        lastLogin: user.lastLogin,
         accountStatus: user.accountStatus,
       });
     })
