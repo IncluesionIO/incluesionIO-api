@@ -66,6 +66,7 @@ exports.getUsers = (req, res, next) => {
           id: user._id,
           username: user.username,
           name: user.name,
+          email: user.email,
           role: user.role,
           accountStatus: user.accountStatus,
         };
@@ -102,6 +103,7 @@ exports.getUser = (req, res, next) => {
         id: user._id,
         username: user.username,
         name: user.name,
+        email: user.email,
         role: user.role,
         accountStatus: user.accountStatus,
       });
