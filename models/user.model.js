@@ -38,6 +38,9 @@ const userSchema = new Schema({
   resetTokenExpiration: {
     type: Date,
     required: false
+  },
+  lastLogin: {
+    type: Date
   }
 })
 
