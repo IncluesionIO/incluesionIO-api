@@ -51,7 +51,6 @@ exports.getAssessments = (req, res, next) => {
         error.httpStatus = 404;
         throw error;
       }
-      console.log(assessments);
       const returnList = assessments.map((assessment) => {
         return {
           companyID: assessment.companyID,

@@ -145,3 +145,8 @@ exports.putPasswordReset = (req, res, next) => {
       next(error);
     });
 };
+
+exports.validatedJWT = (req, res, next) =>
+{
+  res.status(200).send({userId: req.userId})
+}
