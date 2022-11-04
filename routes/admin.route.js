@@ -116,6 +116,9 @@ router.post(
  *                     type: string
  *                  name:
  *                      type: string
+ *                  role: 
+ *                      type: string
+ *                      enum: [ADMIN, USER]
  *                  accountStatus:
  *                      type: boolean
  *               
@@ -154,7 +157,7 @@ router.put(
  * /admin/disable:
  *   put:
  *     tags: 
- *       - User
+ *       - Admin
  *     summary: Disable a Specified User
  *     description: Used to disable a user account conditional on admin privilages 
  *     responses:
@@ -187,6 +190,7 @@ router.put(
   adminController.disableUser);
 
 /**
+ * @swagger
  * /admin/userPasswordReset:
  *   put:
  *     tags: 

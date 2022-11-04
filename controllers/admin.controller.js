@@ -102,6 +102,9 @@ exports.putUpdateUser = (req, res, next) => {
       user.email = req.body.changeObject.email
         ? req.body.changeObject.email
         : user.email;
+        user.role = req.body.changeObject.role
+        ? req.body.changeObject.role
+        : user.role;
       user.name = req.body.changeObject.name
         ? req.body.changeObject.name
         : user.name;
