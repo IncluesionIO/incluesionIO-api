@@ -16,6 +16,7 @@ const companySchema = new Schema({
   },
   organizationType: {
     type: String,
+    enum: ['Profit', 'Non-profit'],
     required: false,
   },
   industry: {

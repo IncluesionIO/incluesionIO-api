@@ -45,7 +45,7 @@ exports.createCompany = (req, res, next) => {
 };
 
 //Return List of Companies
-exports.getCompanies = (req, res, next) => {
+exports.getCompany = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed");
@@ -54,28 +54,25 @@ exports.getCompanies = (req, res, next) => {
     throw error;
   }
 
-  Company.find()
-    .then((companies) => {
-      if (!companies) {
-        const error = new Error("No companies found!");
+  Company.findById(req.params.id)
+    .then((company) => {
+      if (!company) {
+        const error = new Error("No company found!");
         error.httpStatus = 404;
         throw error;
       }
-      const returnList = companies.map((company) => {
-        return {
-          id: company._id,
-          companyName: company.companyName,
-          organizationType: company.organizationType,
-          industry: company.industry,
-          contactEmail: company.contactEmail,
-          supportEmail: company.supportEmail,
-          departments: company.departments,
-        };
+      return res.status(200).json({
+        id: company._id,
+        companyName: company.companyName,
+        organizationType: company.organizationType,
+        industry: company.industry,
+        contactEmail: company.contactEmail,
+        supportEmail: company.supportEmail,
+        departments: company.departments,
       });
-      return res.status(200).json(returnList);
     })
     .catch((err) => {
-      const error = new Error("Companies Retrieval error!");
+      const error = new Error("Company Retrieval error!");
       error.message = err.message;
       error.httpStatus = err.httpStatus || 500;
       error.data = err.errors;

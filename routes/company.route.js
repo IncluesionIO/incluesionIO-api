@@ -54,10 +54,12 @@ router.post(
     body("contactEmail")
       .not()
       .isEmpty()
+      .isEmail()
       .withMessage("Contact Email cannot be empty!"),
     body("supportEmail")
       .not()
       .isEmpty()
+      .isEmail()
       .withMessage("Support Email cannot be empty!"),
   ],
   isAuth,
@@ -66,18 +68,18 @@ router.post(
 
 /**
  * @swagger
- * /company/list:
+ * /company/get/:id:
  *   get:
- *     summary: Retrieve a List of all Companies
- *     description: Used to get all Companies and their Information
+ *     summary: Retrieve a single specified Company
+ *     description: Used to get a Company and their Information
  *     responses:
  *       '200':
- *          description: A successful request, existing companies returned
+ *          description: A successful request, existing company returned
  *       '404':
- *          description: A failed request, companies not found
+ *          description: A failed request, company not found
  *       '500':
  *          description: Internal server error
  */
-router.get("/list", companyController.getCompanies);
+router.get("/get/:id", companyController.getCompanies);
 
 module.exports = router;
