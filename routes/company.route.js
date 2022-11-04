@@ -80,6 +80,6 @@ router.post(
  *       '500':
  *          description: Internal server error
  */
-router.get("/get/:id", companyController.getCompanies);
+router.get("/get/:id", isAuth, companyController.getCompany);
 
 module.exports = router;
