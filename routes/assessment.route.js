@@ -58,6 +58,22 @@ router.post(
 
 /**
  * @swagger
+ * /assessment/get/:companyId:
+ *   get:
+ *     summary: Retrieve all assessments associated with a CompanyID
+ *     description: Retrieval of assessments tied to a company
+ *     responses:
+ *       '200':
+ *          description: A successful request, assessments returned
+ *       '404':
+ *          description: A failed request, assessments with CompanyID not found
+ *       '500':
+ *          description: Internal server error
+ */
+ router.get("/get/:companyId", assessmentController.getAssessmentByCompanyId);
+
+/**
+ * @swagger
  * /assessment/list:
  *   get:
  *     tags: 
