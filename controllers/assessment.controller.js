@@ -35,6 +35,7 @@ exports.submitAssessment = (req, res, next) => {
     });
 };
 
+//Assessment Filtering
 exports.getAssessmentByCompanyId = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
