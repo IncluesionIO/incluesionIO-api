@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const assessmentSchema = new Schema({
-  companyID: {
-    type: String,
-    required: true,
-  },
+  companyID: {type: mongoose.Schema.Types.ObjectId, ref: 'Company'},
   timestamp: {
     type: String,
     required: true,
