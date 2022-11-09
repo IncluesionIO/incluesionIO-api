@@ -1,7 +1,24 @@
 version: '3.9'
 
 services:
+   mongodb:
+     image: mongo
+     restart: unless-stopped
+     environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$DB_PASSWORD
+     ports:
+      - $DB_PORT:$DB_PORT
+     volumes:
+      - ./db:/data/db
+
+
    incluesion-api-service:
+    image: incluesion-api-app
+    depends_on:
+      - mongodb
     build: .
     ports:
-      - 13000:3000
+      - 13000:${PORT}
+    volumes:
+      - ./:/usr/src/app
