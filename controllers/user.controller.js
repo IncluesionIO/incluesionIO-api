@@ -31,12 +31,26 @@ exports.createUser = (req, res, next) => {
   user
     .save()
     .then((result) => {
+      emailHandler("accountCreated",
+      {
+        name: user.name,
+        email: user.email,
+        value: {companyEmail: 'support@support.com', accessLink: 'http://localhost:3000'}
+      })
       res.status(200).json({
         message: "User created successfully!",
         userId: result._id,
       });
     })
     .catch((err) => {
+      if(err.code === 11000)
+      {
+        const error = new Error("Duplicate Key!");
+        error.message = err.message;
+        error.httpStatus = 403
+        error.data = err.errors;
+        next(error);
+      }
       const error = new Error("User creation error!");
       error.message = err.message;
       error.data = err.errors;
