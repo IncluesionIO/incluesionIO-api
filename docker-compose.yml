@@ -17,6 +17,7 @@ services:
     image: incluesion-api-app
     depends_on:
       - mongodb
+    command: npm run dev
     build: .
     ports:
       - 13000:${PORT}
