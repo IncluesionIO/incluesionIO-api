@@ -21,6 +21,9 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
+  companyID: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Company'
+  },
   role: {
     type: String,
     required: true,
