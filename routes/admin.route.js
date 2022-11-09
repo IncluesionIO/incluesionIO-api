@@ -77,8 +77,16 @@ router.post(
     body("email")
       .normalizeEmail()
       .isEmail()
-      .withMessage("Email cannot be empty"),
+      .withMessage("Email cannot be empty")
+      .custom((value, { req }) => {
+        return User.findOne({ email: value }).then((userDoc) => {
+          if (userDoc) {
+            return Promise.reject("Email already in use!");
+          }
+        });
+      }),
     body("role").contains("ADMIN").withMessage("Invalid request!"),
+    body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   adminController.createAdmin
 );

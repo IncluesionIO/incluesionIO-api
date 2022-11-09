@@ -19,6 +19,7 @@ exports.createAdmin = (req, res, next) => {
   const email = req.body.email;
   const role = req.body.role;
   const accountStatus = req.body.accountStatus;
+  const companyID = req.body.companyId
 
   const admin = new User({
     username,
@@ -27,6 +28,7 @@ exports.createAdmin = (req, res, next) => {
     email,
     role,
     accountStatus,
+    companyID
   });
 
   admin

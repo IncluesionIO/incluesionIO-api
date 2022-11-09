@@ -68,9 +68,17 @@ router.post(
       .withMessage("Password must be greater than 8 characters!"),
     body("name").not().isEmpty().withMessage("Name cannot be empty!"),
     body("email")
-      .normalizeEmail()
-      .isEmail()
-      .withMessage("Email cannot be empty"),
+    .normalizeEmail()
+    .isEmail()
+    .withMessage("Email cannot be empty")
+    .custom((value, { req }) => {
+      return User.findOne({ email: value }).then((userDoc) => {
+        if (userDoc) {
+          return Promise.reject("Email already in use!");
+        }
+      });
+    }),
+    body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   userController.createUser
 );
