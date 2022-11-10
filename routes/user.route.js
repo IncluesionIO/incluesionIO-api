@@ -27,6 +27,7 @@ const router = express.Router();
  *             - password
  *             - name
  *             - email
+ *             - companyId
  *           properties:
  *              username:
  *                type: string
@@ -36,6 +37,9 @@ const router = express.Router();
  *                type: string
  *              email:
  *                type: string
+ *              companyId:
+ *                type: string
+ *                example: '636188b756cb0b24035d5717'
  *     responses:
  *       '200':
  *          description: A successful request, user is created
