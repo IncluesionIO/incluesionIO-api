@@ -46,7 +46,8 @@ const userSchema = new Schema({
     type: Date
   },
   numberOfLogins: {
-    type: Number
+    type: Number,
+    default: 0
   },
   dateOfBirth: {
     type: Date,
@@ -59,10 +60,12 @@ const userSchema = new Schema({
     type: String
   },
   totalGameplayTime: {
-    type: Number
+    type: Number,
+    default: 0
   },
   communityInteractionFrequency: {
-    type: Number
+    type: Number,
+    default: 0
   },
   levels: {
     type: [String]
