@@ -30,6 +30,7 @@ const router = express.Router();
  *             - name
  *             - email
  *             - role
+ *             - companyId
  *           properties:
  *              username:
  *                type: string
@@ -43,6 +44,9 @@ const router = express.Router();
  *              role:
  *                type: string
  *                example: 'ADMIN'
+ *              companyId:
+ *                type: string
+ *                example: '636188b756cb0b24035d5717'
  *     responses:
  *       '200':
  *          description: A successful request, user is created
@@ -77,8 +81,16 @@ router.post(
     body("email")
       .normalizeEmail()
       .isEmail()
-      .withMessage("Email cannot be empty"),
+      .withMessage("Email cannot be empty")
+      .custom((value, { req }) => {
+        return User.findOne({ email: value }).then((userDoc) => {
+          if (userDoc) {
+            return Promise.reject("Email already in use!");
+          }
+        });
+      }),
     body("role").contains("ADMIN").withMessage("Invalid request!"),
+    body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   adminController.createAdmin
 );

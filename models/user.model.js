@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt')
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: {
@@ -10,56 +10,59 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
+    required: true,
+    unique: true
+  },
+  companyID: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Company',
     required: true
   },
   role: {
     type: String,
     required: true,
-    enum: ['ADMIN', 'USER'],
-    default: 'USER'
+    enum: ["ADMIN", "USER"],
+    default: "USER",
   },
   accountStatus: {
     type: Boolean,
     required: true,
-    default: true
+    default: true,
   },
   resetToken: {
     type: String,
-    required: false
+    required: false,
   },
   resetTokenExpiration: {
     type: Date,
-    required: false
+    required: false,
   },
   lastLogin: {
-    type: Date
-  }
-})
+    type: Date,
+  },
+});
 
 //Before saving, check if the password has been changed
-userSchema.pre('save', function(next)
-{
-  var user = this
+userSchema.pre("save", function (next) {
+  var user = this;
   //run only if the password has been modified or new
-  if(!user.isModified('password')) return next();
+  if (!user.isModified("password")) return next();
 
-  bcrypt.hash(user.password, 12, (err, hash) =>
-  {
+  bcrypt.hash(user.password, 12, (err, hash) => {
     //Go to next middleware if error
-    if(err) return next(err)
+    if (err) return next(err);
     //Save new hashed password
-    user.password = hash
-    next()
-  })
-})
+    user.password = hash;
+    next();
+  });
+});
 
 //Password comparison
 /**
@@ -67,14 +70,12 @@ userSchema.pre('save', function(next)
  * @param {String} inputPass The input password.
  * @param {userSchema~requestCallback} cb The callback function to be performed after the password is checked.
  */
-userSchema.methods.comparePassword = function(inputPass, cb)
-{
-  bcrypt.compare(inputPass, this.password, (err, isMatch) =>
-  {
-    if(err) return cb(err)
-    cb(null, isMatch)
-  })
-}
+userSchema.methods.comparePassword = function (inputPass, cb) {
+  bcrypt.compare(inputPass, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
 
 /**
  * This callback should handle the return from the comparePassword method.
@@ -83,4 +84,4 @@ userSchema.methods.comparePassword = function(inputPass, cb)
  * @param {boolean} isMatch Boolean result for password matching.
  */
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model("User", userSchema);
