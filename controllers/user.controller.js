@@ -18,6 +18,10 @@ exports.createUser = (req, res, next) => {
   const role = req.body.role;
   const email = req.body.email;
   const accountStatus = req.body.accountStatus;
+  const dateOfBirth = req.body.dateOfBirth;
+  const numberOfLogins = 0;
+  const totalGameplayTime = 0;
+  const communityInteractionFrequency = 0;
 
   const user = new User({
     username,
@@ -26,6 +30,10 @@ exports.createUser = (req, res, next) => {
     email,
     role,
     accountStatus,
+    dateOfBirth,
+    numberOfLogins,
+    totalGameplayTime,
+    communityInteractionFrequency
   });
 
   user

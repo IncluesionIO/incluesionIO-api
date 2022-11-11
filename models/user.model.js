@@ -41,6 +41,31 @@ const userSchema = new Schema({
   },
   lastLogin: {
     type: Date
+  },
+  lastTimePlayed: {
+    type: Date
+  },
+  numberOfLogins: {
+    type: Number
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
+  device: {
+    type: String
+  },
+  location: {
+    type: String
+  },
+  totalGameplayTime: {
+    type: Number
+  },
+  communityInteractionFrequency: {
+    type: Number
+  },
+  levels: {
+    type: [String]
   }
 })
 

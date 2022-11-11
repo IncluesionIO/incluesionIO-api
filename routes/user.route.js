@@ -36,6 +36,8 @@ const router = express.Router();
  *                type: string
  *              email:
  *                type: string
+ *              dob:
+ *                type: date
  *     responses:
  *       '200':
  *          description: A successful request, user is created
@@ -71,6 +73,10 @@ router.post(
       .normalizeEmail()
       .isEmail()
       .withMessage("Email cannot be empty"),
+    body("dateOfBirth")
+        .isEmpty()
+        .withMessage("Date Of Birth Is Required!")
+        .isDate()
   ],
   userController.createUser
 );
