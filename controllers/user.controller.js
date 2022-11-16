@@ -26,11 +26,7 @@ exports.createUser = (req, res, next) => {
     name,
     email,
     role,
-    accountStatus,
-    dateOfBirth,
-    numberOfLogins,
-    totalGameplayTime,
-    communityInteractionFrequency
+    accountStatus
   });
 
   user
