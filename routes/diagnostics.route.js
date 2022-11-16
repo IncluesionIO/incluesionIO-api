@@ -69,6 +69,8 @@ router.post(
  *       - Diagnostic
  *     summary: Get a list of diagnostics from company
  *     description: Get a list of diagnostics from company
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *         '200':
  *           description: A successful request, diagnostic list retrieved.
@@ -111,6 +113,8 @@ router.post(
  *       - Diagnostic
  *     summary: Get a diagnostics from company
  *     description: Get a diagnostics from company
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *         '200':
  *           description: A successful request, diagnostic retrieved.
@@ -153,6 +157,8 @@ router.post(
  *       - Diagnostic
  *     summary: Delete a diagnostics from company
  *     description: Delete a diagnostics from company
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *         '200':
  *           description: A successful request, diagnostic deleted.
