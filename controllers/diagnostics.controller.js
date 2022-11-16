@@ -26,7 +26,8 @@ exports.createDiagnostic = (req, res, next) => {
 
 exports.getDiagnostics = (req, res, next) => {
   getValidationResults(req);
-  if (req.user.companyID !== req.params.companyID) {
+  
+  if (req.user.companyID.toString() !== req.params.companyID) {
     return res.status(401).json({ message: "Not authorized!" });
   }
   Diagnostics.find({ companyID: req.params.companyID })
@@ -46,7 +47,7 @@ exports.getDiagnostic = (req, res, next) => {
 
   Diagnostics.findById(req.params.diagnosticId)
     .then((doc) => {
-      if (req.user.companyID !== doc.companyID) {
+      if (req.user.companyID.toString() !== doc.companyID) {
         return res.status(401).json({ message: "Not authorized!" });
       }
       if (!doc) {
