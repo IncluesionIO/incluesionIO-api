@@ -24,6 +24,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "mocha ./tests/*.spec.js"
   },
   "repository": {
@@ -38,6 +39,7 @@
   "homepage": "https://github.com/IncluesionIO/incluesionIO-api#readme",
   "devDependencies": {
     "chai": "^4.3.6",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.20"
   }
 }
