@@ -47,11 +47,11 @@ exports.getDiagnostic = (req, res, next) => {
 
   Diagnostics.findById(req.params.diagnosticId)
     .then((doc) => {
-      if (req.user.companyID.toString() !== doc.companyID) {
-        return res.status(401).json({ message: "Not authorized!" });
-      }
       if (!doc) {
         return res.status(404).json({ message: "No diagnostic found!" });
+      }
+      if (req.user.companyID.toString() !== doc.companyID.toString()) {
+        return res.status(401).json({ message: "Not authorized!" });
       }
       return res.status(200).json(doc);
     })
@@ -63,7 +63,7 @@ exports.getDiagnostic = (req, res, next) => {
 exports.deleteDiagnostic = (req, res, next) => {
   getValidationResults(req);
 
-  Diagnostics.findByIdAndDelete(req.params.diagnosticId)
+  Diagnostics.deleteOne({_id: req.params.diagnosticId, companyID: req.user.companyID})
     .then((doc) => {
       if (!doc) {
         return res.status(404).json({ message: "File not found" });
