@@ -45,9 +45,37 @@ const userSchema = new Schema({
     required: false,
   },
   lastLogin: {
-    type: Date,
+    type: Date
   },
-});
+  lastTimePlayed: {
+    type: Date
+  },
+  numberOfLogins: {
+    type: Number,
+    default: 0
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
+  device: {
+    type: String
+  },
+  location: {
+    type: String
+  },
+  totalGameplayTime: {
+    type: Number,
+    default: 0
+  },
+  communityInteractionFrequency: {
+    type: Number,
+    default: 0
+  },
+  levels: {
+    type: [String]
+  }
+})
 
 //Before saving, check if the password has been changed
 userSchema.pre("save", function (next) {

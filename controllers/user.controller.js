@@ -18,6 +18,7 @@ exports.createUser = (req, res, next) => {
   const role = req.body.role;
   const email = req.body.email;
   const accountStatus = req.body.accountStatus;
+  const dateOfBirth = req.body.dateOfBirth;
   const companyID = req.body.companyId
 
   const user = new User({
@@ -27,6 +28,7 @@ exports.createUser = (req, res, next) => {
     email,
     role,
     accountStatus,
+    dateOfBirth,
     companyID
   });
 
