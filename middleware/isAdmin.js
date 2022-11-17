@@ -15,6 +15,7 @@ module.exports = (req, res, next) =>
           return next(error)
         }
         req.isAdmin = true
+        req.user = adminUser
         next()
       })
     .catch(err =>

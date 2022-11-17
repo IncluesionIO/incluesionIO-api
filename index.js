@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
 const assessmentRoutes = require("./routes/assessment.route");
 const companyRoutes = require("./routes/company.route");
+const diagnosticRoutes = require('./routes/diagnostics.route')
 const errors = require("./util/errors.json");
 const { errorResponseHandler } = require("./util/errorHandler");
 
@@ -49,6 +50,8 @@ app.use("/admin", adminRoutes);
 app.use("/assessment", assessmentRoutes);
 
 app.use("/company", companyRoutes);
+
+app.use("/diagnostic", diagnosticRoutes)
 
 app.use("/", (req, res, next) => {
   res.status(200).json({

@@ -27,6 +27,7 @@ const router = express.Router();
  *             - password
  *             - name
  *             - email
+ *             - companyId
  *           properties:
  *              username:
  *                type: string
@@ -38,6 +39,9 @@ const router = express.Router();
  *                type: string
  *              dob:
  *                type: date
+ *              companyId:
+ *                type: string
+ *                example: '636188b756cb0b24035d5717'
  *     responses:
  *       '200':
  *          description: A successful request, user is created
@@ -70,13 +74,21 @@ router.post(
       .withMessage("Password must be greater than 8 characters!"),
     body("name").not().isEmpty().withMessage("Name cannot be empty!"),
     body("email")
-      .normalizeEmail()
-      .isEmail()
-      .withMessage("Email cannot be empty"),
+    .normalizeEmail()
+    .isEmail()
+    .withMessage("Email cannot be empty")
+    .custom((value, { req }) => {
+      return User.findOne({ email: value }).then((userDoc) => {
+        if (userDoc) {
+          return Promise.reject("Email already in use!");
+        }
+      });
+    }),
     body("dateOfBirth")
-        .isEmpty()
-        .withMessage("Date Of Birth Is Required!")
-        .isDate()
+    .isEmpty()
+    .withMessage("Date Of Birth Is Required!")
+    .isDate()
+    body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   userController.createUser
 );

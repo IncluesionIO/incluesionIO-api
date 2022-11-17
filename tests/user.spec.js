@@ -14,7 +14,8 @@ describe('Testing User model', () => {
       username: 'testUser1',
       password: 'testPassword1',
       name: 'Test User1',
-      email: 'testEmail@incluesion.io'
+      email: 'testEmail@incluesion.io',
+      companyID: mongoose.Types.ObjectId()
     }
 
     sampleUserAdmin = {
@@ -22,7 +23,8 @@ describe('Testing User model', () => {
       password: 'testPassword12',
       name: 'Test UserAdmin1',
       email: 'adminTestEmail@incluesion.io',
-      role: 'ADMIN'
+      role: 'ADMIN',
+      companyID: mongoose.Types.ObjectId()
     }
   })
 
