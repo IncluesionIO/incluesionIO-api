@@ -87,7 +87,7 @@ router.post(
     body("dateOfBirth")
     .isEmpty()
     .withMessage("Date Of Birth Is Required!")
-    .isDate()
+    .isDate(),
     body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   userController.createUser
