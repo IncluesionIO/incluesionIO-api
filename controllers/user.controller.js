@@ -26,7 +26,8 @@ exports.createUser = (req, res, next) => {
     name,
     email,
     role,
-    accountStatus
+    accountStatus,
+    dateOfBirth
   });
 
   user
