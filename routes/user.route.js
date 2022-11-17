@@ -37,6 +37,8 @@ const router = express.Router();
  *                type: string
  *              email:
  *                type: string
+ *              dob:
+ *                type: date
  *              companyId:
  *                type: string
  *                example: '636188b756cb0b24035d5717'
@@ -82,6 +84,10 @@ router.post(
         }
       });
     }),
+    body("dateOfBirth")
+    .isEmpty()
+    .withMessage("Date Of Birth Is Required!")
+    .isDate()
     body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   userController.createUser
