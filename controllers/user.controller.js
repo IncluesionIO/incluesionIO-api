@@ -118,6 +118,7 @@ exports.getUser = (req, res, next) => {
       }
       return res.status(200).json({
         id: user._id,
+        companyID: user.companyID,
         username: user.username,
         name: user.name,
         email: user.email,

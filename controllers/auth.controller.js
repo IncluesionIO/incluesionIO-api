@@ -42,7 +42,7 @@ exports.login = (req, res, next) => {
           user.lastLogin = Date.now()
           user.save()
           //Send response
-          res.status(200).json({ token: token, userId: user._id.toString() });
+          res.status(200).json({ token: token, userId: user._id.toString(), companyID: user.companyID });
         }
       });
     })
