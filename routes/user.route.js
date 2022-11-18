@@ -86,9 +86,9 @@ router.post(
       });
     }),
     body("dateOfBirth")
-    .isEmpty()
+    .notEmpty()
     .withMessage("Date Of Birth Is Required!")
-    .isDate(),
+    .isISO8601(),
     body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   userController.createUser
