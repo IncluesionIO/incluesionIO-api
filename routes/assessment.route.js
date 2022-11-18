@@ -2,6 +2,9 @@ const express = require("express");
 const { body } = require("express-validator");
 const router = express.Router();
 
+const isAuth = require("../middleware/isAuth");
+const isAdmin = require("../middleware/isAdmin");
+
 const assessmentController = require("../controllers/assessment.controller");
 /**
  * @swagger
@@ -88,6 +91,6 @@ router.post(
  *       '500': 
  *          description: Internal server error
  */
-router.get("/list", assessmentController.getAssessments);
+router.get("/list", isAuth, isAdmin ,assessmentController.getAssessments);
 
 module.exports = router;
