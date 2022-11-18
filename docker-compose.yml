@@ -4,4 +4,4 @@ services:
    incluesion-api-service:
     build: .
     ports:
-      - 13000:3000
+      - 13000:13000

@@ -62,7 +62,6 @@ router.post(
       .isEmail()
       .withMessage("Support Email cannot be empty!"),
   ],
-  isAuth,
   companyController.createCompany
 );
 
