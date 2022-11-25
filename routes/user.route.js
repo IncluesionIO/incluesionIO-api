@@ -4,6 +4,7 @@ const { body } = require("express-validator/check");
 const User = require("../models/user.model");
 const userController = require("../controllers/user.controller");
 const isAuth = require("../middleware/isAuth");
+const isAdmin = require("../middleware/isAdmin")
 
 const router = express.Router();
 
@@ -85,9 +86,9 @@ router.post(
       });
     }),
     body("dateOfBirth")
-    .isEmpty()
+    .notEmpty()
     .withMessage("Date Of Birth Is Required!")
-    .isDate(),
+    .isISO8601(),
     body("companyId").notEmpty().withMessage("comapnyId is required!")
   ],
   userController.createUser
@@ -107,7 +108,7 @@ router.post(
  *       '500':
  *          description: Internal server error
  */
-router.get("/list", userController.getUsers);
+router.get("/list", isAuth, isAdmin, userController.getUsers);
 
 /**
  * @swagger

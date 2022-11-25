@@ -78,7 +78,7 @@ exports.getAssessments = (req, res, next) => {
     throw error;
   }
 
-  Assessment.find()
+  Assessment.find({companyID: req.user.companyID})
     .then((assessments) => {
       if (!assessments) {
         const error = new Error("No assessments found!");

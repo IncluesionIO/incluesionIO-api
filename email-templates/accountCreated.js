@@ -50,7 +50,7 @@ exports.getAccountCreatedEmailTemplate = (recipientEmail, recipientName, company
     box-shadow: 2px 4px 10px #ccc;
     background: #079BF5;
     font-family: sans-serif;
-    font-weight: bold;">Access Incluesion Here</a>
+    font-weight: bold;">Please take this assessment to get started!</a>
     <p style="width: 60%;
     font-size: .85rem;
     color: #888;

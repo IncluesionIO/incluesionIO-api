@@ -8,7 +8,6 @@ const isAdmin = require("../middleware/isAdmin");
 
 const router = express.Router();
 
-
 /**
  * @swagger
  * /admin/create:

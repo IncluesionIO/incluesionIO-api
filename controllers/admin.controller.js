@@ -28,7 +28,8 @@ exports.createAdmin = (req, res, next) => {
     email,
     role,
     accountStatus,
-    companyID
+    companyID,
+    dateOfBirth: new Date()
   });
 
   admin
