@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { v4: uuid } = require("uuid");
 require("dotenv").config();
+//Import database config
+const DBURI = require("./config/db.config").url;
+
 
 //Routes
 const apiDocRoute = require("./routes/api-doc.route");
@@ -14,6 +17,7 @@ const userRoutes = require("./routes/user.route");
 const assessmentRoutes = require("./routes/assessment.route");
 const companyRoutes = require("./routes/company.route");
 const diagnosticRoutes = require('./routes/diagnostics.route')
+
 const errors = require("./util/errors.json");
 const { errorResponseHandler } = require("./util/errorHandler");
 
@@ -53,6 +57,7 @@ app.use("/company", companyRoutes);
 
 app.use("/diagnostic", diagnosticRoutes)
 
+
 app.use("/", (req, res, next) => {
   res.status(200).json({
     message: "We're live!",
@@ -67,14 +72,19 @@ try {
   if (!process.env.PORT) {
     throw errors.NoPortOnEnvDetected;
   }
-  if (!process.env.DBURI) {
+  if (!DBURI) {
     throw errors.NoDBURIOnEnvDetected;
   }
-  mongoose.connect(process.env.DBURI).then((result) => {
-    app.listen(process.env.PORT, () =>
-      console.log("API Server is running..." + process.env.PORT)
-    );
-  });
+  mongoose
+    .connect(DBURI)
+    .then((result) => {
+      app.listen(process.env.PORT, () =>
+        console.log("API Server is running..." + process.env.PORT)
+      );
+    })
+    .catch((err) => {
+      throw err;
+    });
 } catch (e) {
   console.log(e);
 }
