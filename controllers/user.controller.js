@@ -1,6 +1,8 @@
 //Controller for user routes
 const { validationResult } = require("express-validator");
 
+const { emailHandler } = require("../util/emailHandler");
+
 //Import the user model
 const User = require("../models/user.model");
 
@@ -18,6 +20,8 @@ exports.createUser = (req, res, next) => {
   const role = req.body.role;
   const email = req.body.email;
   const accountStatus = req.body.accountStatus;
+  const dateOfBirth = req.body.dateOfBirth;
+  const companyID = req.body.companyId;
 
   const user = new User({
     username,
@@ -26,17 +30,34 @@ exports.createUser = (req, res, next) => {
     email,
     role,
     accountStatus,
+    dateOfBirth,
+    companyID,
   });
 
   user
     .save()
     .then((result) => {
+      emailHandler("accountCreated", {
+        name: user.name,
+        email: user.email,
+        value: {
+          companyEmail: "support@support.com",
+          accessLink: `docs.google.com/forms/d/e/1FAIpQLSeOlhoiEprxE07v1oOCbniEi2mxp874GN2jObi2aqgPvdGW9g/viewform?usp=pp_url&entry.873971165=${companyID}`,
+        },
+      });
       res.status(200).json({
         message: "User created successfully!",
         userId: result._id,
       });
     })
     .catch((err) => {
+      if (err.code === 11000) {
+        const error = new Error("Duplicate Key!");
+        error.message = err.message;
+        error.httpStatus = 403;
+        error.data = err.errors;
+        next(error);
+      }
       const error = new Error("User creation error!");
       error.message = err.message;
       error.data = err.errors;
@@ -54,7 +75,7 @@ exports.getUsers = (req, res, next) => {
     throw error;
   }
 
-  User.find()
+  User.find({ companyID: req.user.companyID })
     .then((users) => {
       if (!users) {
         const error = new Error("No users found!");
@@ -102,6 +123,7 @@ exports.getUser = (req, res, next) => {
       }
       return res.status(200).json({
         id: user._id,
+        companyID: user.companyID,
         username: user.username,
         name: user.name,
         email: user.email,
