@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { v4: uuid } = require("uuid");
 require("dotenv").config();
-//Import database config
-const DBURI = require("./config/db.config").url;
 
 
 //Routes
@@ -72,9 +70,8 @@ try {
   if (!process.env.PORT) {
     throw errors.NoPortOnEnvDetected;
   }
-  if (!DBURI) {
-    throw errors.NoDBURIOnEnvDetected;
-  }
+  //Import database config
+  const DBURI = require("./config/db.config").getUrl();
   mongoose
     .connect(DBURI)
     .then((result) => {

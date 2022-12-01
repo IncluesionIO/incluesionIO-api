@@ -12,7 +12,7 @@ exports.getPasswordResetEmailTemplate = (recipientEmail, recipientName, tokenStr
 {
   return {
     to: recipientEmail,
-    from: 'dteje014@fiu.edu', //temp
+    from: process.env.FROMEMAIL,
     subject: `Password Reset Request for ${recipientName}`,
     html: `<div style="
     margin: 0;
