@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+import userProgressionModel from './user-progression.model';
 
 
 const userSchema = new Schema({
@@ -75,6 +76,9 @@ const userSchema = new Schema({
   },
   levels: {
     type: [String]
+  },
+  userProgression: {
+    type: userProgressionModel
   }
 })
 
